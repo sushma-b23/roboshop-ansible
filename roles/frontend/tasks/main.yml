@@ -1,9 +1,4 @@
-#source common.sh
-#
-#print_head "Install Nginx"
-#yum install nginx -y &>>${LOG}
-#status_check
-#
+
 #print_head "Remove Nginx Old Content"
 #rm -rf /usr/share/nginx/html/* &>>${LOG}
 #status_check
@@ -36,9 +31,11 @@
   ansible.builtin.yum:
     name: nginx
     state: installed
-  register: out
+- name: add user
+  user:
+     name: roboshop
+     register: out
 
 - name: out
   debug:
-    msg: "{{out}}"
-
+    msg: "{{out.stdout}}"
