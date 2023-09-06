@@ -1,0 +1,16 @@
+- name: Load MySQL Schema
+  community.mysql.mysql.db:
+    state: import
+    name: all
+    target: /app/schema/{{component}}.sql
+    login_host: mysql-dev.devops70online
+    login_user: root
+    login_password: "{{ root_mysql_password }}"
+
+
+- name: Install Python Deps
+  ansible.builtin.yum:
+    name:
+      - python3-pyMySQL
+      - mysql
+    state: installed

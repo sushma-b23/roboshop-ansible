@@ -1,0 +1,19 @@
+- name: Copy SystemD file
+  ansible.builtin.copy:
+    src: "{{component}}.service"
+    dest: /etc/systemd/system/{{component}}.service
+  when: schema_load
+
+- name: Start {{component}} Service
+  ansible.builtin.systemd:
+    name: "{{component}}"
+    daemon_reload: yes
+    enabled: yes
+    state: restarted
+  when: schema_load
+
+- name: Load Schema
+  community.mongodb.mongodb-shell:
+  login_host: mongodb-dev.devops70.online
+  file: "/app/schema/{{component}}.js"
+  idempotent: yes

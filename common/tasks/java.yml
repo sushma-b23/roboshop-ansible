@@ -1,0 +1,6 @@
+- name: App Pre-Req
+  ansible.builtin.include_tasks: "app-prereq.yml"
+
+- name: SystemD Setup
+  ansible.builtin.include_tasks: "systemd.yml"
+
