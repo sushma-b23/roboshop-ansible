@@ -36,7 +36,7 @@
             region: us-east-1
             string_type: "SecureString"
           loop:
-            - {name: "dev.payment.AMQP_PASSS", value: "roboshop123"}
+            - {name: "dev.payment.AMQP_PASS", value: "roboshop123"}
 
 
 
