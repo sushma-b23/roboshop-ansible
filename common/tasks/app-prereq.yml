@@ -12,8 +12,21 @@
     path: /app
     state: directory
 
+#- name: Download {{component}} App Content
+#  ansible.builtin.unarchive:
+#    src: https//roboshop-artifacts.s3.amazonaws.com/{{component}}.zip
+#    dest: /app
+#    state: latest
+
+
 - name: Download {{component}} App Content
   ansible.builtin.unarchive:
-    src: https//roboshop-artifacts.s3.amazonaws.com/{{component}}.zip
+    src: https//{{nexus_user}}:{{nexus_pass}}@172.31.21.74:8081/repository/{{component}}/{{component}}-{{app_version}}.zip
     dest: /app
-    state: latest
+    remote_src: yes
+  vars:
+    nexus_user: "{{ lookup('aws_ssm', 'nexus_user' region='us-east-1') }}"
+    nexus_pass: "{{ lookup('aws_ssm', 'nexus_pass' region='us-east-1') }}"
+
+
+
